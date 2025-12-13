@@ -22,8 +22,10 @@ import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import AdminDashboard from "./pages/AdminDashboard";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 
 function Router() {
   return (
@@ -93,6 +95,16 @@ function Router() {
           <ProtectedRoute>
             <Settings />
           </ProtectedRoute>
+        )}
+      />
+
+      {/* Admin-only pages */}
+      <Route
+        path="/admin/dashboard"
+        component={() => (
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
         )}
       />
 

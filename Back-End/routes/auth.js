@@ -69,6 +69,16 @@ router.post('/register', async (req, res) => {
         );
     }
 
+    // Insert into Admin table if user role is Admin
+    if (userRole === 'Admin') {
+      await pool
+        .request()
+        .input('adminId', sql.Int, userId)
+        .query(
+          'INSERT INTO Admin (Admin_ID) VALUES (@adminId)'
+        );
+    }
+
     res.status(201).json({
       success: true,
       message: 'User registered successfully',

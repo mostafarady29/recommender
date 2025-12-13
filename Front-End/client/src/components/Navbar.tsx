@@ -1,15 +1,16 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { 
-  Menu, 
-  X, 
-  User, 
-  Settings, 
-  BookOpen, 
-  Users, 
-  Layers, 
+import {
+  Menu,
+  X,
+  User,
+  Settings,
+  BookOpen,
+  Users,
+  Layers,
   Bot,
-  LogOut
+  LogOut,
+  LayoutDashboard
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -37,6 +38,7 @@ export default function Navbar() {
   });
   const [userName, setUserName] = useState<string>("");
   const [userPhoto, setUserPhoto] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string>("");
 
   const navLinks = [
     { name: "Home", path: "/", icon: null },
@@ -45,6 +47,11 @@ export default function Navbar() {
     { name: "Authors", path: "/authors", icon: Users },
     { name: "AI Assistant", path: "/ai-assistant", icon: Bot },
   ];
+
+  // Add Dashboard link only for Admin users
+  const adminNavLinks = userRole === "Admin"
+    ? [{ name: "Dashboard", path: "/admin/dashboard", icon: LayoutDashboard }, ...navLinks]
+    : navLinks;
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -82,6 +89,33 @@ export default function Navbar() {
     }
   };
 
+  const fetchUserRole = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    try {
+      const response = await fetch(`${API_BASE}/auth/me`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      if (data.success && data.data.Role) {
+        setUserRole(data.data.Role);
+        // Update localStorage with the verified role from database
+        localStorage.setItem("userRole", data.data.Role);
+      } else {
+        setUserRole("");
+      }
+    } catch (error) {
+      console.error('Failed to fetch user role:', error);
+      setUserRole("");
+    }
+  };
+
   const handleLogout = () => {
     try {
       localStorage.removeItem("token");
@@ -89,7 +123,7 @@ export default function Navbar() {
       localStorage.removeItem("userName");
       localStorage.removeItem("userEmail");
       localStorage.removeItem("userRole");
-    } catch {}
+    } catch { }
     setIsLoggedIn(false);
     setUserName("");
     setUserPhoto(null);
@@ -101,13 +135,17 @@ export default function Navbar() {
     const updateAuthState = () => {
       const token = localStorage.getItem("token");
       const name = localStorage.getItem("userName") || "";
+      const role = localStorage.getItem("userRole") || "";
       setIsLoggedIn(Boolean(token));
       setUserName(name);
-      
+      setUserRole(role);
+
       if (token) {
         fetchUserPhoto();
+        fetchUserRole(); // Fetch role from database
       } else {
         setUserPhoto(null);
+        setUserRole("");
       }
     };
 
@@ -118,15 +156,15 @@ export default function Navbar() {
     };
 
     window.addEventListener("insight:auth-changed", handler);
-    
+
     const storageHandler = (e: StorageEvent) => {
       if (e.key === "token" || e.key === "userName") {
         updateAuthState();
       }
     };
-    
+
     window.addEventListener("storage", storageHandler);
-    
+
     return () => {
       window.removeEventListener("insight:auth-changed", handler);
       window.removeEventListener("storage", storageHandler);
@@ -148,7 +186,7 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
+          {adminNavLinks.map((link) => (
             <Link key={link.path} href={link.path}>
               <a
                 className={cn(
@@ -197,7 +235,7 @@ export default function Navbar() {
                   <span>Settings</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={handleLogout}
                   className="text-destructive focus:text-destructive"
                 >
@@ -207,7 +245,7 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button 
+            <Button
               className="rounded-none bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={() => setLocation("/login")}
             >
@@ -230,9 +268,9 @@ export default function Navbar() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background p-4 absolute w-full h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="mobile-menu md:hidden border-t border-border bg-background p-4 absolute w-full h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="flex flex-col gap-4">
-            {navLinks.map((link) => (
+            {adminNavLinks.map((link) => (
               <Link key={link.path} href={link.path}>
                 <a
                   className={cn(
@@ -267,7 +305,7 @@ export default function Navbar() {
                     </div>
                   </div>
                   <Link href="/profile">
-                    <a 
+                    <a
                       className="flex items-center gap-3 px-4 py-3 text-sm font-medium hover:bg-muted"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -276,7 +314,7 @@ export default function Navbar() {
                     </a>
                   </Link>
                   <Link href="/settings">
-                    <a 
+                    <a
                       className="flex items-center gap-3 px-4 py-3 text-sm font-medium hover:bg-muted"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
@@ -284,7 +322,7 @@ export default function Navbar() {
                       Settings
                     </a>
                   </Link>
-                  <button 
+                  <button
                     className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-destructive hover:bg-muted w-full text-left"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
@@ -296,7 +334,7 @@ export default function Navbar() {
                   </button>
                 </div>
               ) : (
-                <Button 
+                <Button
                   className="w-full rounded-none"
                   onClick={() => {
                     setIsMobileMenuOpen(false);

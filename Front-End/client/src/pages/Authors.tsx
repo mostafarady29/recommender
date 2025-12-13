@@ -176,11 +176,11 @@ export default function Authors() {
             {authors.map((author) => (
               <Link key={author.Author_ID} href={`/authors/${author.Author_ID}`}>
                 <div className="group h-full">
-                  <Card className="h-full border-border rounded-none transition-all hover:border-primary hover:shadow-md flex flex-col cursor-pointer">
+                  <Card className="stagger-item card-hover h-full border-border rounded-none flex flex-col cursor-pointer">
                     <CardHeader className="pb-4 flex flex-row items-center gap-4">
                       <Avatar className="h-16 w-16 rounded-none border">
-                        <AvatarImage 
-                          src={getAuthorImageUrl(author.Author_ID, author.Has_Picture)} 
+                        <AvatarImage
+                          src={getAuthorImageUrl(author.Author_ID, author.Has_Picture)}
                           alt={`${author.First_Name} ${author.Last_Name}`}
                           className="object-cover"
                         />

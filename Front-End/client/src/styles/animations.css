@@ -1,0 +1,725 @@
+/* ============================================
+   GLOBAL ANIMATIONS SYSTEM
+   Comprehensive animations for entire website
+   ============================================ */
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+/* Page Entrance Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Continuous Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Effect Animations */
+@keyframes glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   UTILITY ANIMATION CLASSES
+   ============================================ */
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.animate-spin {
+  animation: spin 0.8s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================
+   STAGGER DELAYS FOR GRID ITEMS
+   ============================================ */
+
+.stagger-item {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.stagger-item:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.stagger-item:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.stagger-item:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.stagger-item:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.stagger-item:nth-child(5) {
+  animation-delay: 320ms;
+}
+
+.stagger-item:nth-child(6) {
+  animation-delay: 400ms;
+}
+
+.stagger-item:nth-child(7) {
+  animation-delay: 480ms;
+}
+
+.stagger-item:nth-child(8) {
+  animation-delay: 560ms;
+}
+
+.stagger-item:nth-child(9) {
+  animation-delay: 640ms;
+}
+
+.stagger-item:nth-child(10) {
+  animation-delay: 720ms;
+}
+
+.stagger-item:nth-child(11) {
+  animation-delay: 800ms;
+}
+
+.stagger-item:nth-child(12) {
+  animation-delay: 880ms;
+}
+
+/* ============================================
+   CARD ANIMATIONS
+   ============================================ */
+
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   BUTTON ANIMATIONS
+   ============================================ */
+
+button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+  width: 400px;
+  height: 400px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Icon animations on hover */
+button:hover svg {
+  transition: transform 0.3s ease;
+}
+
+button:hover .icon-rotate {
+  transform: rotate(15deg);
+}
+
+button:hover .icon-shake {
+  animation: shake 0.5s ease;
+}
+
+button:hover .icon-bounce {
+  animation: bounce 0.6s ease;
+}
+
+/* ============================================
+   FORM INPUT ANIMATIONS
+   ============================================ */
+
+input:focus,
+textarea:focus,
+select:focus {
+  transform: scale(1.01);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2), 0 4px 15px rgba(59, 130, 246, 0.15);
+  transition: all 0.3s ease;
+}
+
+input,
+textarea,
+select {
+  transition: all 0.3s ease;
+}
+
+/* ============================================
+   NAVBAR ANIMATIONS
+   ============================================ */
+
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   TABLE ANIMATIONS
+   ============================================ */
+
+tbody tr {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+tbody tr:nth-child(odd) {
+  animation-name: slideInFromLeft;
+}
+
+tbody tr:nth-child(even) {
+  animation-name: slideInFromRight;
+}
+
+tbody tr:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+tbody tr:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+tbody tr:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+tbody tr:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+tbody tr:nth-child(5) {
+  animation-delay: 160ms;
+}
+
+tbody tr:nth-child(6) {
+  animation-delay: 200ms;
+}
+
+tbody tr:nth-child(7) {
+  animation-delay: 240ms;
+}
+
+tbody tr:nth-child(8) {
+  animation-delay: 280ms;
+}
+
+tbody tr:nth-child(9) {
+  animation-delay: 320ms;
+}
+
+tbody tr:nth-child(10) {
+  animation-delay: 360ms;
+}
+
+tbody tr:hover {
+  background: rgba(59, 130, 246, 0.06);
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  animation: fadeInDown 0.4s ease-out;
+}
+
+/* ============================================
+   DIALOG/MODAL ANIMATIONS
+   ============================================ */
+
+/* Exclude dropdown menus from animations - they should appear instantly */
+[role="dialog"]:not([data-radix-popper-content-wrapper]),
+[role="alertdialog"] {
+  animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Disable animations for dropdown menus */
+[data-radix-popper-content-wrapper],
+[role="menu"],
+[data-radix-dropdown-menu-content],
+[data-radix-menu-content] {
+  animation: none !important;
+}
+
+/* Disable ALL Radix UI dropdown animations (data-state based) */
+[role="menu"][data-state="open"],
+[role="menu"][data-state="closed"],
+[data-radix-dropdown-menu-content][data-state="open"],
+[data-radix-dropdown-menu-content][data-state="closed"],
+[data-radix-menu-content][data-state="open"],
+[data-radix-menu-content][data-state="closed"] {
+  animation: none !important;
+}
+
+/* Override Tailwind animation classes */
+.animate-in,
+.animate-out,
+.fade-in-0,
+.fade-out-0,
+.zoom-in-95,
+.zoom-out-95,
+.slide-in-from-top-2,
+.slide-in-from-bottom-2,
+.slide-in-from-left-2,
+.slide-in-from-right-2 {
+  animation: none !important;
+}
+
+/* Disable animations for ALL elements inside dropdown menus */
+[data-radix-popper-content-wrapper] *,
+[role="menu"] *,
+[data-radix-dropdown-menu-content] *,
+[data-radix-menu-content] * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Disable button effects inside dropdowns */
+[data-radix-popper-content-wrapper] button,
+[role="menu"] button,
+[data-radix-dropdown-menu-content] button,
+[data-radix-menu-content] button {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+[data-radix-popper-content-wrapper] button::before,
+[role="menu"] button::before,
+[data-radix-dropdown-menu-content] button::before,
+[data-radix-menu-content] button::before {
+  display: none !important;
+}
+
+[data-radix-popper-content-wrapper] button:hover,
+[role="menu"] button:hover,
+[data-radix-dropdown-menu-content] button:hover,
+[data-radix-menu-content] button:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Disable menu item focus animations */
+[role="menuitem"]:focus,
+[data-slot="dropdown-menu-item"]:focus {
+  transition: none !important;
+}
+
+/* ============================================
+   BADGE ANIMATIONS
+   ============================================ */
+
+span[class*="badge"] {
+  transition: all 0.3s ease;
+}
+
+span[class*="badge"]:hover {
+  transform: scale(1.12);
+}
+
+/* ============================================
+   TAB ANIMATIONS
+   ============================================ */
+
+[role="tablist"] button {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+[role="tablist"] button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+[role="tablist"] button[data-state="active"]::after {
+  width: 85%;
+}
+
+[role="tablist"] button:hover {
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   TOAST NOTIFICATIONS
+   ============================================ */
+
+[data-sonner-toast] {
+  animation: slideInFromRight 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ============================================
+   PAGINATION ANIMATIONS
+   ============================================ */
+
+button[aria-label*="page"]:hover {
+  animation: bounce 0.6s ease;
+}
+
+/* ============================================
+   MOBILE MENU ANIMATION
+   ============================================ */
+
+.mobile-menu {
+  animation: slideInFromRight 0.4s ease-out;
+}
+
+.mobile-menu-item {
+  animation: slideInFromLeft 0.4s ease-out both;
+}
+
+.mobile-menu-item:nth-child(1) {
+  animation-delay: 50ms;
+}
+
+.mobile-menu-item:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.mobile-menu-item:nth-child(3) {
+  animation-delay: 150ms;
+}
+
+.mobile-menu-item:nth-child(4) {
+  animation-delay: 200ms;
+}
+
+.mobile-menu-item:nth-child(5) {
+  animation-delay: 250ms;
+}
+
+.mobile-menu-item:nth-child(6) {
+  animation-delay: 300ms;
+}
+
+/* ============================================
+   FOOTER ANIMATION
+   ============================================ */
+
+footer {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* ============================================
+   GRADIENT BACKGROUNDS
+   ============================================ */
+
+.animated-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+.loading-skeleton {
+  background: linear-gradient(90deg,
+      rgba(200, 200, 200, 0.1) 0%,
+      rgba(200, 200, 200, 0.2) 50%,
+      rgba(200, 200, 200, 0.1) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS (Global)
+   ============================================ */
+
+* {
+  transition-property: transform, opacity, background-color, color, border-color, box-shadow;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable transitions for elements with animations */
+[class*="animate-"],
+.stagger-item {
+  transition: none !important;
+}

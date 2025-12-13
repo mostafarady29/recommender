@@ -368,7 +368,7 @@ export default function Papers() {
               {papers.map((paper) => (
                 <Link key={paper.Paper_ID} href={`/papers/${paper.Paper_ID}`}>
                   <a className="block h-full group">
-                    <Card className="h-full border-border rounded-none transition-all duration-300 hover:border-primary hover:shadow-md flex flex-col">
+                    <Card className="stagger-item card-hover h-full border-border rounded-none flex flex-col">
                       <CardHeader className="pb-3">
                         <div className="flex justify-between items-start gap-2 mb-3">
                           <Badge

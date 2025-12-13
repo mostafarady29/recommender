@@ -74,14 +74,14 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <section className="relative border-b border-border bg-background overflow-hidden">
+      <section className="relative border-b border-border bg-background overflow-hidden animate-in fade-in duration-700">
         <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
           <div className="absolute inset-0 bg-[url('/images/grid-texture.png')] bg-repeat opacity-50"></div>
         </div>
 
         <div className="container relative z-10 min-h-[calc(100vh-4rem)] flex items-center py-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center w-full">
-            <div className="space-y-6">
+            <div className="space-y-6 animate-in slide-in-from-left duration-700">
               <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none">
                 HARD <span className="text-primary">SCIENCE.</span><br />
                 CLEAR <span className="text-primary">INSIGHTS.</span>
@@ -127,7 +127,7 @@ export default function Home() {
       <section className="py-20 border-b border-border">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="border-border bg-background shadow-sm hover:shadow-lg transition-all duration-300 rounded-none">
+            <Card className="stagger-item card-hover border-border bg-background shadow-sm rounded-none">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-mono text-muted-foreground uppercase tracking-wider flex items-center justify-between">
                   Total Papers
@@ -140,7 +140,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="border-border bg-background shadow-sm hover:shadow-lg transition-all duration-300 rounded-none">
+            <Card className="stagger-item card-hover border-border bg-background shadow-sm rounded-none">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-mono text-muted-foreground uppercase tracking-wider flex items-center justify-between">
                   Authors
@@ -153,7 +153,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="border-border bg-background shadow-sm hover:shadow-lg transition-all duration-300 rounded-none">
+            <Card className="stagger-item card-hover border-border bg-background shadow-sm rounded-none">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-mono text-muted-foreground uppercase tracking-wider flex items-center justify-between">
                   Fields
@@ -188,7 +188,7 @@ export default function Home() {
               <Link href="/ai-assistant">
                 <Button size="lg" className="rounded-none font-bold h-12 px-8 group">
                   Launch AI Assistant
-                  <ArrowRight className="ml-3 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-3 h-4 w-4 transition-transform group-hover:translate-x-1 icon-bounce" />
                 </Button>
               </Link>
             </div>

@@ -99,10 +99,10 @@ export default function Fields() {
               return (
                 <Link key={field.Field_ID} href={`/fields/${field.Field_ID}`}>
                   <a className="group h-full block">
-                    <Card className="h-full border-border rounded-none transition-all duration-300 hover:border-primary hover:shadow-md flex flex-col cursor-pointer">
+                    <Card className="stagger-item card-hover h-full border-border rounded-none flex flex-col cursor-pointer">
                       <CardHeader className="pb-4">
                         <div className="w-12 h-12 bg-primary/10 flex items-center justify-center mb-4 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                          <FieldIcon className="h-6 w-6" />
+                          <FieldIcon className="h-6 w-6 icon-rotate" />
                         </div>
                         <CardTitle className="text-2xl font-bold tracking-tight group-hover:text-primary transition-colors">
                           {field.Field_Name}

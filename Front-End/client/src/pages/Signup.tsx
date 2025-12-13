@@ -33,7 +33,7 @@ export default function Signup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!name || !email || !password || !affiliation || !specialization) {
       toast.error("Please fill in all fields");
       return;
@@ -57,9 +57,9 @@ export default function Signup() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          name, 
-          email, 
+        body: JSON.stringify({
+          name,
+          email,
           password,
           role: 'Researcher',
           affiliation,
@@ -87,39 +87,39 @@ export default function Signup() {
 
   return (
     <MainLayout>
-      <div className="container max-w-3xl py-12">
+      <div className="container max-w-3xl py-12 animate-fade-in-up">
         <h1 className="text-4xl font-bold tracking-tighter mb-2">CREATE ACCOUNT</h1>
         <p className="text-sm text-muted-foreground mb-6">
           Sign up to start exploring research papers
         </p>
-        
-        <form onSubmit={handleSubmit} className="space-y-5">
+
+        <form onSubmit={handleSubmit} className="space-y-5 animate-scale-in">
           {/* Row 1: Name and Email */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="name" className="text-sm font-medium">
                 Full Name
               </Label>
-              <Input 
-                id="name" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
+              <Input
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="rounded-none mt-2 h-11"
                 placeholder="Enter your full name"
                 disabled={loading}
                 required
               />
             </div>
-            
+
             <div>
               <Label htmlFor="email" className="text-sm font-medium">
                 Email Address
               </Label>
-              <Input 
+              <Input
                 id="email"
                 type="email"
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="rounded-none mt-2 h-11"
                 placeholder="Enter your email"
                 disabled={loading}
@@ -134,10 +134,10 @@ export default function Signup() {
               <Label htmlFor="affiliation" className="text-sm font-medium">
                 Affiliation
               </Label>
-              <Input 
-                id="affiliation" 
-                value={affiliation} 
-                onChange={(e) => setAffiliation(e.target.value)} 
+              <Input
+                id="affiliation"
+                value={affiliation}
+                onChange={(e) => setAffiliation(e.target.value)}
                 className="rounded-none mt-2 h-11"
                 placeholder="e.g., University, Research Institute"
                 disabled={loading}
@@ -149,10 +149,10 @@ export default function Signup() {
               <Label htmlFor="specialization" className="text-sm font-medium">
                 Specialization
               </Label>
-              <Input 
-                id="specialization" 
-                value={specialization} 
-                onChange={(e) => setSpecialization(e.target.value)} 
+              <Input
+                id="specialization"
+                value={specialization}
+                onChange={(e) => setSpecialization(e.target.value)}
                 className="rounded-none mt-2 h-11"
                 placeholder="e.g., Machine Learning, Quantum Physics"
                 disabled={loading}
@@ -160,18 +160,18 @@ export default function Signup() {
               />
             </div>
           </div>
-          
+
           {/* Row 3: Password and Confirm Password */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="password" className="text-sm font-medium">
                 Password
               </Label>
-              <Input 
-                id="password" 
-                type="password" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="rounded-none mt-2 h-11"
                 placeholder="Create a password"
                 disabled={loading}
@@ -187,11 +187,11 @@ export default function Signup() {
               <Label htmlFor="confirmPassword" className="text-sm font-medium">
                 Confirm Password
               </Label>
-              <Input 
-                id="confirmPassword" 
-                type="password" 
-                value={confirmPassword} 
-                onChange={(e) => setConfirmPassword(e.target.value)} 
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="rounded-none mt-2 h-11"
                 placeholder="Re-enter your password"
                 disabled={loading}
@@ -200,16 +200,16 @@ export default function Signup() {
               />
             </div>
           </div>
-          
-          <Button 
-            className="rounded-none w-full h-11 mt-6 font-semibold" 
+
+          <Button
+            className="rounded-none w-full h-11 mt-6 font-semibold"
             type="submit"
             disabled={loading}
           >
             {loading ? "Creating account..." : "Create Account"}
           </Button>
         </form>
-        
+
         <div className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{" "}
           <a className="text-primary underline font-medium hover:text-primary/80" href="/login">
