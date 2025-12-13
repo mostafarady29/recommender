@@ -8,10 +8,6 @@ from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
 import requests
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = FastAPI(title="RAG PDF System")
 
@@ -76,13 +72,8 @@ def search_similar(query, top_k=3):
 def ask_llm(question, context):
     url = "https://openrouter.ai/api/v1/chat/completions"
     
-    # Get API key from environment variable
-    api_key = os.getenv('OPENROUTER_API_KEY')
-    if not api_key:
-        return "Error: OPENROUTER_API_KEY not found in environment variables"
-    
     headers = {
-        "Authorization": f"Bearer {api_key}",
+        "Authorization": "insight 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",
         "Content-Type": "application/json"
     }
     
