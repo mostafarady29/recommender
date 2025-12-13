@@ -413,34 +413,52 @@ router.get('/users', async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
         const offset = (page - 1) * limit;
+        const searchQuery = req.query.search || '';
 
         const pool = await getPool();
 
-        // Get total count
-        const countResult = await pool
-            .request()
-            .query('SELECT COUNT(*) as total FROM [User]');
+        let whereClause = '';
+        let searchInput = null;
 
+        if (searchQuery) {
+            whereClause = `WHERE Name LIKE @search OR Email LIKE @search`;
+            searchInput = `%${searchQuery}%`;
+        }
+
+        // Get total count
+        const countQuery = `SELECT COUNT(*) as total FROM [User] ${whereClause}`;
+        const countRequest = pool.request();
+        if (searchInput) {
+            countRequest.input('search', sql.NVarChar, searchInput);
+        }
+        const countResult = await countRequest.query(countQuery);
         const total = countResult.recordset[0].total;
 
         // Get users
-        const usersResult = await pool
-            .request()
-            .input('limit', sql.Int, limit)
-            .input('offset', sql.Int, offset)
-            .query(`
-                SELECT 
-                    User_ID,
-                    Name,
-                    Email,
-                    Role
-                FROM [User]
-                ORDER BY Name
-                OFFSET @offset ROWS
-                FETCH NEXT @limit ROWS ONLY
-            `);
+        const usersQuery = `
+            SELECT 
+                User_ID,
+                Name,
+                Email,
+                Role
+            FROM [User]
+            ${whereClause}
+            ORDER BY Name
+            OFFSET @offset ROWS
+            FETCH NEXT @limit ROWS ONLY
+        `;
 
-        // Get role counts
+        const usersRequest = pool.request()
+            .input('limit', sql.Int, limit)
+            .input('offset', sql.Int, offset);
+
+        if (searchInput) {
+            usersRequest.input('search', sql.NVarChar, searchInput);
+        }
+
+        const usersResult = await usersRequest.query(usersQuery);
+
+        // Get role counts (always from full dataset, not filtered)
         const roleCountsResult = await pool
             .request()
             .query(`

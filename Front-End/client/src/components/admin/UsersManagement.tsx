@@ -88,18 +88,18 @@ export default function UsersManagement() {
         try {
             setLoading(true);
             const token = localStorage.getItem("token");
-            // If searching, get all users. Otherwise use pagination
-            const limit = searchQuery ? 1000 : 20;
-            const currentPage = searchQuery ? 1 : page;
+            // Build the API URL with search parameter
+            let apiUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/admin/users?page=${page}&limit=20`;
 
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/admin/users?page=${currentPage}&limit=${limit}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            if (searchQuery) {
+                apiUrl += `&search=${encodeURIComponent(searchQuery)}`;
+            }
+
+            const response = await fetch(apiUrl, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
 
             const data = await response.json();
 
@@ -418,78 +418,72 @@ export default function UsersManagement() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {users
-                            .filter(user =>
-                                searchQuery === "" ||
-                                user.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                user.Email.toLowerCase().includes(searchQuery.toLowerCase())
-                            )
-                            .map((user) => {
-                                const hasPendingChange = pendingChanges.has(user.User_ID);
-                                const pendingRole = pendingChanges.get(user.User_ID);
-                                const isUpdating = updating === user.User_ID;
+                        {users.map((user) => {
+                            const hasPendingChange = pendingChanges.has(user.User_ID);
+                            const pendingRole = pendingChanges.get(user.User_ID);
+                            const isUpdating = updating === user.User_ID;
 
-                                return (
-                                    <TableRow key={user.User_ID}>
-                                        <TableCell className="font-medium">{user.Name}</TableCell>
-                                        <TableCell>{user.Email}</TableCell>
-                                        <TableCell>
-                                            <Badge variant={getRoleBadgeVariant(user.Role)}>
-                                                {user.Role}
-                                            </Badge>
-                                        </TableCell>
-                                        <TableCell>
-                                            <Select
-                                                value={pendingRole || user.Role}
-                                                onValueChange={(value) => handleRoleChange(user.User_ID, value)}
-                                                disabled={isUpdating}
-                                            >
-                                                <SelectTrigger className="w-40">
-                                                    <SelectValue />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="Admin">Admin</SelectItem>
-                                                    <SelectItem value="Researcher">Researcher</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </TableCell>
-                                        <TableCell className="text-right">
-                                            <div className="flex items-center justify-end gap-2">
-                                                {hasPendingChange && (
-                                                    <Button
-                                                        size="sm"
-                                                        onClick={() => saveRoleChange(user.User_ID)}
-                                                        disabled={isUpdating}
-                                                    >
-                                                        {isUpdating ? (
-                                                            <>
-                                                                <Loader2 className="w-4 h-4 mr-1 animate-spin" />
-                                                                Saving...
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <Save className="w-4 h-4 mr-1" />
-                                                                Save
-                                                            </>
-                                                        )}
-                                                    </Button>
-                                                )}
+                            return (
+                                <TableRow key={user.User_ID}>
+                                    <TableCell className="font-medium">{user.Name}</TableCell>
+                                    <TableCell>{user.Email}</TableCell>
+                                    <TableCell>
+                                        <Badge variant={getRoleBadgeVariant(user.Role)}>
+                                            {user.Role}
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Select
+                                            value={pendingRole || user.Role}
+                                            onValueChange={(value) => handleRoleChange(user.User_ID, value)}
+                                            disabled={isUpdating}
+                                        >
+                                            <SelectTrigger className="w-40">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="Admin">Admin</SelectItem>
+                                                <SelectItem value="Researcher">Researcher</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        <div className="flex items-center justify-end gap-2">
+                                            {hasPendingChange && (
                                                 <Button
                                                     size="sm"
-                                                    variant="destructive"
-                                                    onClick={() => {
-                                                        setUserToDelete(user);
-                                                        setShowDeleteDialog(true);
-                                                    }}
-                                                    disabled={deleting === user.User_ID}
+                                                    onClick={() => saveRoleChange(user.User_ID)}
+                                                    disabled={isUpdating}
                                                 >
-                                                    <Trash2 className="w-4 h-4" />
+                                                    {isUpdating ? (
+                                                        <>
+                                                            <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                                                            Saving...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Save className="w-4 h-4 mr-1" />
+                                                            Save
+                                                        </>
+                                                    )}
                                                 </Button>
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                );
-                            })}
+                                            )}
+                                            <Button
+                                                size="sm"
+                                                variant="destructive"
+                                                onClick={() => {
+                                                    setUserToDelete(user);
+                                                    setShowDeleteDialog(true);
+                                                }}
+                                                disabled={deleting === user.User_ID}
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
                     </TableBody>
                 </Table>
             </div>

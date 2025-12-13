@@ -13,6 +13,7 @@ const statisticsRoutes = require('./routes/statistics');
 const aiRoutes = require('./routes/ai');
 const usersRoutes = require('./routes/users');
 const adminRoutes = require('./routes/admin');
+const chatSessionsRoutes = require('./routes/chat-sessions');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -41,6 +42,7 @@ app.use('/api/statistics', statisticsRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/chat', chatSessionsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
@@ -118,6 +120,14 @@ const server = app.listen(PORT, async () => {
     console.log('  POST   /api/admin/users');
     console.log('  PUT    /api/admin/users/:id/role');
     console.log('  DELETE /api/admin/users/:id\n');
+
+    // Chat Sessions Routes
+    console.log('[CHAT SESSIONS]');
+    console.log('  GET    /api/chat/sessions');
+    console.log('  GET    /api/chat/sessions/:sessionId');
+    console.log('  POST   /api/chat/sessions');
+    console.log('  PUT    /api/chat/sessions/:sessionId');
+    console.log('  DELETE /api/chat/sessions/:sessionId\n');
 
     // Health Check
     console.log('[HEALTH]');

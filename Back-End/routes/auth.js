@@ -113,9 +113,9 @@ router.post('/login', async (req, res) => {
       .query('SELECT User_ID, Name, Email, Password, Role FROM [User] WHERE Email = @email');
 
     if (result.recordset.length === 0) {
-      return res.status(401).json({
+      return res.status(404).json({
         success: false,
-        message: 'Invalid email or password',
+        message: 'User not found. Please check your email or sign up.',
         data: null,
       });
     }
@@ -127,7 +127,7 @@ router.post('/login', async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid email or password',
+        message: 'Incorrect password. Please try again.',
         data: null,
       });
     }

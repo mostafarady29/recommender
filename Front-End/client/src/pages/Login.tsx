@@ -56,7 +56,14 @@ export default function Login() {
         toast.success("Logged in successfully");
         setLocation("/");
       } else {
-        toast.error(data.message || "Invalid email or password");
+        // Display specific error message from backend
+        if (response.status === 404) {
+          toast.error("User not found. Please check your email or sign up.");
+        } else if (response.status === 401) {
+          toast.error("Incorrect password. Please try again.");
+        } else {
+          toast.error(data.message || "Login failed. Please try again.");
+        }
       }
     } catch (error) {
       console.error('Login error:', error);
